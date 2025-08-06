@@ -7,6 +7,9 @@ import net.javaguides.banking_app.repository.AccountRepository;
 import net.javaguides.banking_app.service.AccountService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class AccountServiceImpl implements AccountService {
 
@@ -15,7 +18,7 @@ public class AccountServiceImpl implements AccountService {
         this.accountRepository = accountRepository;
     }
 
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
     @Override
     public AccountDto createAccount(AccountDto accountDto) {
@@ -58,5 +61,12 @@ public class AccountServiceImpl implements AccountService {
 
 
 
+    }
+
+    @Override
+    public List<AccountDto> getAllAccount() {
+          List<Account> accounts=accountRepository.findAll();
+        return   accounts.stream().map(AccountMapper::mapToAccountDto).collect(Collectors.toList());
+        //  return List.of();
     }
 }
