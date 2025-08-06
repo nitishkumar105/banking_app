@@ -52,4 +52,9 @@ public class AccountController {
          return ResponseEntity.ok(accounts);
 
      }
+    @DeleteMapping("/{id}")
+      public ResponseEntity<String> deleteAccount( @PathVariable Long id){
+           accountService.deleteAccount(id);
+            return ResponseEntity.ok("account deleted successfully");
+      }
 }
